@@ -1,5 +1,5 @@
 module.exports = {
-  ignores: [(commit) => commit.includes('init')],
+  ignores: [(commit) => commit.includes('temp')],
   extends: ['@commitlint/config-conventional'],
   rules: {
     'body-leading-blank': [2, 'always'],
