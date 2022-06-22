@@ -31,6 +31,30 @@ const dashboard: AppRouteModule = {
         title: t('routes.dashboard.workbench'),
       },
     },
+    {
+      path: 'components',
+      name: 'components',
+      component: () => import('/@/views/setting/index.vue'),
+      meta: {
+        title: t('routes.dashboard.components'),
+      },
+    },
+    {
+      path: 'pages',
+      name: 'pages',
+      component: () => import('/@/views/dashboard/workbench/index.vue'),
+      meta: {
+        title: t('routes.dashboard.pages'),
+      },
+    },
+    {
+      path: 'scene',
+      name: 'scene',
+      component: () => import('/@/views/dashboard/workbench/index.vue'),
+      meta: {
+        title: t('routes.dashboard.scene'),
+      },
+    },
   ],
 };
 

@@ -20,10 +20,7 @@
     "log": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "clean:cache": "rimraf node_modules/.cache/ && rimraf node_modules/.vite",
     "clean:lib": "rimraf node_modules",
-    "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
-    "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
-    "lint:stylelint": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
-    "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
+
     "test:unit": "jest",
     "test:unit-coverage": "jest --coverage",
     "test:gzip": "npx http-server dist --cors --gzip -c-1",
@@ -41,6 +38,7 @@
     "@zxcvbn-ts/core": "^1.0.0-beta.0",
     "ant-design-vue": "2.2.8",
     "axios": "^0.24.0",
+    "codemirror": "^5.65.6",
     "crypto-js": "^4.1.1",
     "echarts": "^5.2.2",
     "lodash-es": "^4.17.21",
@@ -55,6 +53,7 @@
     "sortablejs": "^1.14.0",
     "vue": "^3.2.21",
     "vue-i18n": "^9.1.9",
+    "vue-json-pretty": "^1.8.3",
     "vue-router": "^4.0.12",
     "vue-types": "^4.1.1"
   },
