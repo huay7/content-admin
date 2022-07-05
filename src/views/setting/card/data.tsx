@@ -10,5 +10,13 @@ export const cardList = (() => {
       download: 'bx:bx-download',
     });
   }
+  result[0] = {
+    title: 'ID017股债观点',
+    icon: 'logos:vue',
+    color: '#1890ff',
+    active: '100',
+    new: '1,799',
+    download: 'bx:bx-download',    
+  }
   return result;
 })();

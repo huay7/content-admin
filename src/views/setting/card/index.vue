@@ -57,7 +57,12 @@
       const [register1, { openDrawer: openDrawer1, setDrawerProps }] = useDrawer();
 
       function openDrawerLoading() {
-        openDrawer1();
+        // 需要传参的写法
+        openDrawer1(true, {
+          name: 'editJson',
+        });
+
+        // openDrawer1();
         setDrawerProps({ loading: true });
         setTimeout(() => {
           setDrawerProps({ loading: false });
