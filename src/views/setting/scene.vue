@@ -2,9 +2,9 @@
   <ScrollContainer>
     <div ref="wrapperRef" :class="prefixCls">
       <Tabs tab-position="left" :tabBarStyle="tabBarStyle">
-        <template v-for="(item,index) in t" :key="index">
+        <template v-for="item in settingList" :key="item.key">
           <TabPane :tab="item.name">
-            <component :is="item.com" :params="item" />
+            <component :is="item.component" />
           </TabPane>
         </template>
       </Tabs>
@@ -17,7 +17,7 @@
   import { Tabs } from 'ant-design-vue';
 
   import { ScrollContainer } from '/@/components/Container/index';
-  import { componentList } from './data';
+  import { settingList } from './data3';
   import editJson from './EditJson.vue';
   import cardList from './card/index.vue';
   import describtion from './Describtion.vue';
@@ -41,13 +41,12 @@
       // MsgNotify,
     },
     setup() {
-      const t = componentList;
       return {
         prefixCls: 'account-setting',
+        settingList,
         tabBarStyle: {
           width: '220px',
         },
-        t
       };
     },
   });

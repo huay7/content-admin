@@ -2,7 +2,7 @@
 
 [![license](https://img.shields.io/github/license/anncwb/vue-vben-admin.svg)](LICENSE)
 
-<h1>Vue vben admin</h1>
+<h1>内容管理平台</h1>
 </div>
 
 **中文** | [English](./README.md)

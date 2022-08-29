@@ -1,16 +1,19 @@
 <template>
   <PageWrapper contentFullHeight>
     <CollapseContainer title="设置配置" style="width: 48%;">
-      <BasicForm
+      <BasicForm @register="register" @submit="handleSubmit" />
+
+      <!-- <BasicForm
         autoFocusFirstItem
         :labelWidth="120"
-        :schemas="schemas"
+        :schemas="schemasNew"
         :actionColOptions="{ span: 24 }"
         @submit="handleSubmit"
         @reset="handleReset"
-      >
+      > -->
       <!-- 切换的时候可以把下面对应的配置项更换 -->
-        <template #selectA="{ model, field }">
+
+        <!-- <template #selectA="{ model, field }">
           <a-select
             :options="optionsA"
             mode="multiple"
@@ -27,7 +30,7 @@
             @change="valueSelectB = model[field]"
             allowClear
           />
-        </template>
+        </template> -->
         <!-- <template #localSearch="{ model, field }">
           <ApiSelect
             :api="optionsListApi"
@@ -51,10 +54,13 @@
             :params="searchParams"
             @search="onSearch"
           />
-        </template> -->
-      </BasicForm>
+        </template>
+      </BasicForm> -->
+      {{params}}
+
     </CollapseContainer>
     <CollapseContainer title="预览效果" style="width: 50%;">
+      <canvas id="qrcode"></canvas>
       <div v-if="frameSrc">
         <FramePage
           v-if="frameSrc"
@@ -65,8 +71,8 @@
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, unref, ref } from 'vue';
-  import { BasicForm, FormSchema, ApiSelect, FormProps, FormActionType } from '/@/components/Form/index';
+  import { computed, defineComponent, unref, ref, toRefs,watch,reactive,onMounted } from 'vue';
+  import { BasicForm, FormSchema, ApiSelect, FormProps, FormActionType,useForm,setProps, appendSchemaByField } from '/@/components/Form/index';
   import { CollapseContainer } from '/@/components/Container';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { PageWrapper } from '/@/components/Page';
@@ -78,6 +84,9 @@
   // import { useFrameKeepAlive } from './useFrameKeepAlive';
   import { Select } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
+  import qrcode from 'qrcode';
+  import { updateParams } from '/@/api/sys/user';
+  import { Base64 } from 'js-base64';
 
   const valueSelectA = ref<string[]>([]);
   const valueSelectB = ref<string[]>([]);
@@ -97,127 +106,193 @@
     });
   });
 
-  const schemas: FormSchema[] = [
-    {
-      field: 'field4',
-      component: 'Select',
-      label: '选择配置组件',
-      colProps: {
-        span: 24,
-      },
-      componentProps: {
-        options: [
-          {
-            label: 'banner',
-            value: '1',
-            key: '1',
-          },
-          {
-            label: 'table',
-            value: '2',
-            key: '2',
-          },          
-          {
-            label: 'videos',
-            value: '3',
-            key: '3',
-          },
-        ],
-      },
-    },   
-    {
-      field: 'divider-basic',
-      component: 'Divider',
-      label: '基础配置',
-      colProps: {
-        span: 24,
-      },
-    },
-    {
-      field: 'field9',
-      component: 'Switch',
-      label: '是否展示banner',
-      colProps: {
-        span: 24,
-      },
-    },
-    {
-      field: 'youxianji',
-      component: 'InputNumber',
-      label: '优先级',
-      required: true,
-      colProps: {
-        span: 24,
-      },
-    },
-    {
-      field: 'shuliang',
-      component: 'InputNumber',
-      label: 'banner数量',
-      required: true,
-      colProps: {
-        span: 24,
-      },
-    },
-    {
-      field: 'gaodu',
-      component: 'Input',
-      label: 'banner高度',
-      defaultValue: '90',
-      colProps: {
-        span: 24,
-      },
-      componentProps: {
-        onChange: (e: any) => {
-          console.log(e);
-        },
-      },
-      suffix: 'px',
-    }, 
-    {
-      field: 'sudu',
-      component: 'Input',
-      label: '轮播速度',
-      defaultValue: '5',
-      colProps: {
-        span: 24,
-      },
-      componentProps: {
-        onChange: (e: any) => {
-          console.log(e);
-        },
-      },
-      suffix: '秒',
-    },
 
-  ];
 
   export default defineComponent({
+    props:{
+      params:{
+        type: Object
+      }
+    },
+    
     components: { BasicForm, CollapseContainer,FramePage, PageWrapper, ApiSelect, ASelect: Select },
-    setup() {
+    setup(props) {
       // const { getFramePages, hasRenderFrame, showIframe } = useFrameKeepAlive();
+        onMounted(() => {
+          console.log('qrcode')
+          console.log(qrcode)
+        });
+
+        const schemasNew = reactive([{
+          field: 'sudu4444',
+          component: 'Input',
+          label: '轮播速度1',
+          defaultValue: '3123123124132',
+          colProps: {
+            span: 24,
+          },
+          componentProps: {
+            onChange: (e: any) => {
+              console.log(e);
+            },
+          },
+          suffix: '秒',
+        }
+        ])
+      const [register, { setProps,updateSchema,appendSchemaByField,setFieldsValue }] = useForm({
+        labelWidth: 120,
+        schemas:[ {
+          field: 'sudu444422',
+          component: 'Input',
+          label: '轮播速度1',
+          defaultValue: '3123123124132',
+          show:false,
+          colProps: {
+            span: 24,
+          },
+          componentProps: {
+            onChange: (e: any) => {
+              console.log(e);
+            },
+          },
+          suffix: '秒',
+          }],
+        actionColOptions: {
+          span: 24,
+        },
+      });
+      const { params } = toRefs(props)
+      console.log('params')
+      const getUserRepositories = () => {
+        // 更新 `prop.user` 到 `user.value` 访问引用值
+        console.log('children watched')
+        schemasNew.push({
+          field: 'id',
+          component: 'Select',
+          label: '页面id',
+          defaultValue: 'sadas',
+          colProps: {
+            span: 24,
+          }
+        })
+        console.log('updateSchema')
+        console.log(updateSchema)
+        
+        appendSchemaByField(
+         {
+          field: 'id',
+          component: 'Input',
+          label: 'id',
+          colProps: {
+            span: 24,
+          }
+          },
+          '',
+        )
+        setFieldsValue({id: params.value.id})
+        appendSchemaByField(
+         {
+          field: 'title',
+          component: 'Input',
+          label: '页面标题',
+          colProps: {
+            span: 24,
+          }
+          },
+          '',
+        )
+        setFieldsValue({title: params.value.title})
+        appendSchemaByField(
+         {
+          field: 'sharetitle',
+          component: 'Input',
+          label: '分享标题',
+          colProps: {
+            span: 24,
+          }
+          },
+          '',
+        )
+        setFieldsValue({sharetitle: params.value.share.title})
+        appendSchemaByField(
+         {
+          field: 'sharedesc',
+          component: 'Input',
+          label: '分享描述',
+          colProps: {
+            span: 24,
+          }
+          },
+          '',
+        )
+        setFieldsValue({sharedesc: params.value.share.desc})
+        appendSchemaByField(
+         {
+          field: 'sharePic',
+          component: 'Input',
+          label: '分享图片',
+          colProps: {
+            span: 24,
+          }
+          },
+          '',
+        )
+        setFieldsValue({sharePic: params.value.share.imgUrl})
+        if(params.value.param[0].bannerList) {
+        appendSchemaByField(
+         {
+          field: 'banner',
+          component: 'Input',
+          label: 'banner图片',
+          colProps: {
+            span: 24,
+          }
+          },
+          '',
+        )
+        setFieldsValue({banner: params.value.param[0].bannerList[0].src})
+        }
+        // schemasNew.value.push()
+        console.log(schemasNew)
+          console.log('qrcode')
+        console.log(params)
+        console.log(params.value.id)
+          const url = 'https://owa.maxwealthfund.com/innersite/poster/#/main?id='+params.value.id
+          console.log(url)
+
+          // new qrcode(document.getElementById("qrcode"), "http://jindo.dev.naver.com/collie");
+          let canvas = document.getElementById('qrcode')
+          qrcode.toCanvas(canvas, url, function (error) {
+            if (error) console.error(error)
+            console.log('success!');
+          })
+
+      }
+
+
+      watch(params, getUserRepositories)
 
       const frameSrc = ref<string>();
-      frameSrc.value = 'http://172.20.10.2:8088/innersite/poster/#/main?id=017'
-      const formElRef = ref<Nullable<FormActionType>>(null);
+      frameSrc.value = 'https://www.npmjs.com/package/qrcodejs'
+      // const formElRef = ref<Nullable<FormActionType>>(null);
       const check = ref(null);
       const { createMessage } = useMessage();
       const keyword = ref<string>('');
       const searchParams = computed<Recordable>(() => {
         return { keyword: unref(keyword) };
       });
-      function setProps(props: FormProps) {
-          const formEl = formElRef.value;
-          if (!formEl) return;
-          formEl.setProps(props);
-      }
-      setProps({
-        submitButtonOptions: {
-          disabled: true,
-          loading: true,
-          text: '完成',
-        },
-      })
+      // function setProps(props: FormProps) {
+      //     const formEl = formElRef.value;
+      //     if (!formEl) return;
+      //     formEl.setProps(props);
+      // }
+      // setProps({
+      //   submitButtonOptions: {
+      //     disabled: true,
+      //     loading: true,
+      //     text: '完成',
+      //   },
+      // })
       function onSearch(value: string) {
         keyword.value = value;
       }
@@ -253,7 +328,11 @@
             // Toast('保存成功')
       };
       return {
-        schemas,
+        schemasNew,
+        // schemas,
+        params,
+        register,
+        appendSchemaByField,
         // optionsListApi,
         optionsA,
         optionsB,
@@ -267,9 +346,27 @@
         },
         handleSubmit: (values: any) => {
           console.log('values', values);
-          createMessage.success('click search,values:' + JSON.stringify(values));
+          let params1 = params.value
+          params1.param[0].bannerList[0].src = values.banner
+          params1.title = values.title
+          const stringRes = JSON.stringify(params1);
+    // const base64Res = Base64.encode(stringRes);
+
+    // console.log(stringRes)
+    let base64Res = (Base64.encode(stringRes)).replace(/\//g, '?');
+    base64Res = base64Res.replace(/\+/g, '!');
+    // append(base64Res);
+          const update = {
+            id: '30',
+            content: base64Res
+          }
+          console.log(update)
+          updateParams(update)
+          createMessage.success('click search,values:' + JSON.stringify(params1));
+
         },
         setProps,
+        updateSchema,
         // setProps(props: FormProps) {
         //   const formEl = formElRef.value;
         //   if (!formEl) return;

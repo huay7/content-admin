@@ -115,9 +115,12 @@
 
       const getSchema = computed((): FormSchema[] => {
         const schemas: FormSchema[] = unref(schemaRef) || (unref(getProps).schemas as any);
+        console.log(schemas)
         for (const schema of schemas) {
           const { defaultValue, component } = schema;
           // handle date type
+          console.log('compinent in12 ')
+          console.log(defaultValue)
           if (defaultValue && dateItemType.includes(component)) {
             if (!Array.isArray(defaultValue)) {
               schema.defaultValue = dateUtil(defaultValue);

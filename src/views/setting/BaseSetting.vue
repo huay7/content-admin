@@ -26,12 +26,12 @@
   import { computed, defineComponent, onMounted } from 'vue';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { CollapseContainer } from '/@/components/Container';
-  import { CropperAvatar } from '/@/components/Cropper';
+  // import { CropperAvatar } from '/@/components/Cropper';
 
   import { useMessage } from '/@/hooks/web/useMessage';
 
   import headerImg from '/@/assets/images/header.jpg';
-  import { accountInfoApi } from '/@/api/demo/account';
+  // import { accountInfoApi } from '/@/api/demo/account';
   import { baseSetschemas } from './data';
   import { useUserStore } from '/@/store/modules/user';
   import { uploadApi } from '/@/api/sys/upload';

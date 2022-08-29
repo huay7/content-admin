@@ -2,12 +2,15 @@ import { defHttp } from '/@/utils/http/axios';
 import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/userModel';
 
 import { ErrorMessageMode } from '/#/axios';
+import { colSize } from 'ant-design-vue/lib/grid/Col';
 
 enum Api {
   Login = '/login',
   Logout = '/logout',
   GetUserInfo = '/getUserInfo',
   GetPermCode = '/getPermCode',
+  GetParams = '/api/api/h5/content/list',
+  UpdateParams = '/api/api/h5/save/content'
 }
 
 /**
@@ -30,6 +33,14 @@ export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') 
  */
 export function getUserInfo() {
   return defHttp.get<GetUserInfoModel>({ url: Api.GetUserInfo }, { errorMessageMode: 'none' });
+}
+
+export function getParams() {
+  return defHttp.get({ url: Api.GetParams }, { errorMessageMode: 'none', isTransformResponse:false });
+}
+
+export function updateParams(params) {
+  return defHttp.post({ url: Api.UpdateParams,params:params }, { errorMessageMode: 'none', isTransformResponse:false });
 }
 
 export function getPermCode() {

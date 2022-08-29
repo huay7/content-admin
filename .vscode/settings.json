@@ -138,5 +138,8 @@
     "brotli",
     "tailwindcss",
     "sider"
-  ]
+  ],
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
 }

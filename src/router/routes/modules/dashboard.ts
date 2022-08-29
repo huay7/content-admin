@@ -11,26 +11,27 @@ const dashboard: AppRouteModule = {
   meta: {
     orderNo: 10,
     icon: 'ion:grid-outline',
-    title: t('routes.dashboard.dashboard'),
+    // title: t('routes.dashboard.dashboard'),
+    title: '内容管理',
   },
   children: [
-    {
-      path: 'analysis',
-      name: 'Analysis',
-      component: () => import('/@/views/dashboard/analysis/index.vue'),
-      meta: {
-        // affix: true,
-        title: t('routes.dashboard.analysis'),
-      },
-    },
-    {
-      path: 'workbench',
-      name: 'Workbench',
-      component: () => import('/@/views/dashboard/workbench/index.vue'),
-      meta: {
-        title: t('routes.dashboard.workbench'),
-      },
-    },
+    // {
+    //   path: 'analysis',
+    //   name: 'Analysis',
+    //   component: () => import('/@/views/dashboard/analysis/index.vue'),
+    //   meta: {
+    //     // affix: true,
+    //     title: t('routes.dashboard.analysis'),
+    //   },
+    // },
+    // {
+    //   path: 'workbench',
+    //   name: 'Workbench',
+    //   component: () => import('/@/views/dashboard/workbench/index.vue'),
+    //   meta: {
+    //     title: t('routes.dashboard.workbench'),
+    //   },
+    // },
     {
       path: 'components',
       name: 'components',
@@ -42,7 +43,7 @@ const dashboard: AppRouteModule = {
     {
       path: 'pages',
       name: 'pages',
-      component: () => import('/@/views/dashboard/workbench/index.vue'),
+      component: () => import('/@/views/setting/page.vue'),
       meta: {
         title: t('routes.dashboard.pages'),
       },
@@ -50,7 +51,15 @@ const dashboard: AppRouteModule = {
     {
       path: 'scene',
       name: 'scene',
-      component: () => import('/@/views/dashboard/workbench/index.vue'),
+      component: () => import('/@/views/setting/scene.vue'),
+      meta: {
+        title: t('routes.dashboard.scene'),
+      },
+    },
+    {
+      path: 'scene2',
+      name: 'scene2',
+      component: () => import('/@/views/setting/configuration/index.vue'),
       meta: {
         title: t('routes.dashboard.scene'),
       },
